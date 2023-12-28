@@ -53,28 +53,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="Pages\Books.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="Pages\**\*.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Pages\**\*.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\Books.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Pages\Books.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Pages\Books.razor" />
   </ItemGroup>
 
 </Project>
