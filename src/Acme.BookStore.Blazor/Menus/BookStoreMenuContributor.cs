@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Acme.BookStore.Localization;
 using Acme.BookStore.MultiTenancy;
+using Acme.BookStore.Permissions;
 using Volo.Abp.Identity.Blazor;
 using Volo.Abp.SettingManagement.Blazor.Menus;
 using Volo.Abp.TenantManagement.Blazor.Navigation;
@@ -18,7 +19,7 @@ public class BookStoreMenuContributor : IMenuContributor
         }
     }
 
-    private Task ConfigureMainMenuAsync(MenuConfigurationContext context)
+    private async Task<Task> ConfigureMainMenuAsync(MenuConfigurationContext context)
     {
         var administration = context.Menu.GetAdministration();
         var l = context.GetLocalizer<BookStoreResource>();
@@ -46,6 +47,14 @@ public class BookStoreMenuContributor : IMenuContributor
                     )
                 )
         );
+        if (await context.IsGrantedAsync(BookStorePermissions.Authors.Default))
+        {
+            context.Menu.AddItem(new ApplicationMenuItem(
+                "BooksStore.Authors",
+                l["Authors"],
+                url: "/authors"
+            ));
+        }
 
         if (MultiTenancyConsts.IsEnabled)
         {
@@ -60,5 +69,6 @@ public class BookStoreMenuContributor : IMenuContributor
         administration.SetSubItemOrder(SettingManagementMenus.GroupName, 3);
 
         return Task.CompletedTask;
+
     }
 }
